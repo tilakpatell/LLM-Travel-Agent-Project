@@ -1,0 +1,134 @@
+# Benchmark for Thomas the Travel Agent
+
+# Test 1: Simple search and booking scenario
+# This test checks if the agent can successfully find and book a flight with simple input.
+- prompt: Find me a flight from JFK to EWR on Jan 1.
+  expected_type: find-flights
+  expected_result: [20,21]  # expected ids are 20 and 21.
+
+- prompt: Book the first one.
+  expected_type: book-flight
+  expected_result: 20  # Should book flight ID 20
+
+- prompt: Thank you!
+  expected_type: text
+
+# Test 2: Simple search and booking scenario
+# Keeping multiple simple tests to see the model's reliability with expected format
+- prompt: Find me a flight from ORD to SEA on Jan 1. 
+  expected_type: find-flights
+  expected_result: [23,24]
+
+- prompt: Book the second one. 
+  expected_type: book-flight
+  expected_result: 24
+
+- prompt: Thanks
+  expected_type: text
+
+# Test 3: Simple search where we omit the destination.
+# Simplish test, but testing that the agent can handle inputs where we do not provide some parts of info.
+- prompt: I am trying to flee Seattle. Find me a flight out of SEA on April 2nd
+  expected_type: find-flights
+  expected_result: [6973, 6977, 7020, 7021]
+
+- prompt: Book the last one 
+  expected_type: book-flight
+  expected_result: 7021
+
+- prompt: Thank you you saved me
+  expected_type: text
+
+# Test 4: Simple search where we omit the origin
+# Simplish test again, but testing that agent can handle missing inputs. 
+- prompt: I have just been dying to go to Texas. Find me all flights that goes to DFW on February 2nd
+  expected_type: find-flights
+  expected_result: [2474,2486,2491,2492,2493,2527,2529]
+
+- prompt: Book the 3rd one 
+  expected_type: book-flight
+  expected_result: 2491
+
+- prompt: Yay
+  expected_type: text
+
+# Test 5: Simple search, just keep things simple. 
+# Just one more basic test to see if the model works as intended. 
+- prompt: Find me a flight that goes to LAX on New Years Eve
+  expected_type: find-flights
+  expected_result: [27857, 27858, 27863, 27864, 27865, 27876, 27877, 27894, 27897]
+
+- prompt: Book the second to last one
+  expected_type: book-flight
+  expected_result: 27894
+
+- prompt: Thanks!
+  expected_type: text
+
+
+# Test 6: Search for named day rather than dated day
+# This test ensures that the agent can successfully find and book a flight based on named days rather than numeric days.
+- prompt: Find me a flight from JFK to BOS on Christmas
+  expected_type: find-flights
+  expected_result: [27366]  # only expected id. 
+
+- prompt: Book the flight.
+  expected_type: book-flight
+  expected_result: 27366  # Should book flight ID 27366
+
+- prompt: Appreciate your help!
+  expected_type: text
+  # This test was designed to see if the agent can handle inputs that do not match an exact form. 
+
+# Test 7: Unable to find flight
+# This test verifies that the agent can appropriately handle a conversation when given a set of inputs that does not exist in the database. 
+- prompt: book a flight from seattle to antarctica on oct 8
+  expected_type: find-flights
+  expected_result: []  # There are no flights to antarctica. 
+
+- prompt: Book it.
+  expected_type: book-flight
+
+- prompt: You're amazing, thanks!
+  expected_type: text
+  # This test ensures that the agent correctly responds to the user’s choice when multiple flights are available.
+
+# Test 8: Testing agent logic in processing slightly more complicate information. 
+# This test verifies that the agent can handle receiving additional information about the date and using that to produce results. 
+- prompt: I got a flight from BOS to ORD on Jan 1st. I want to book a return flight one week later. 
+  expected_type: find-flights
+  expected_result: [541]
+
+- prompt: Book it
+  expected_type: book-flight
+  expected_result: 541
+
+- prompt: Thanks
+  expected_type: text
+
+# Test 9: Tests not using airport codes
+# This test verifies that the agent can handle processing information about location not formatted in terms of local airports.
+- prompt: show me flights from Los Angeles to New York on January 4th
+  expected_type: find-flights
+  expected_result: [242, 243]
+
+- prompt: Book the 2nd one. 
+  expected_type: book-flight
+  expected_result: 243
+
+- prompt: Thanks
+  expected_type: text 
+
+# Test 10: Tests a longer range of dates. 
+- prompt: show me flights from LAX to JFK from Jan 1st to Jan 5th 
+  expected_type: find-flights
+  expect_result: [0, 79, 80, 159, 160, 242, 243, 320]
+
+- prompt: Book the last one
+  expected_type: book-flight
+  expected_result: 320
+
+- prompt: Yippee
+  expected_type: text
+
+
