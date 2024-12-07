@@ -45,5 +45,5 @@ The responses are managed through JSON, with specific LLM prompts guiding the sy
 Ensure you have the OpenAI API key configured in `client_json` and `client_natural` objects.
 
 ```python
-client_json = OpenAI(base_url="http://199.94.61.113:8000/v1/", api_key="")
-client_natural = OpenAI(base_url="http://199.94.61.113:8000/v1/", api_key="")
+client_json = OpenAI(base_url="", api_key="")
+client_natural = OpenAI(base_url="", api_key="")
